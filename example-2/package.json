@@ -1,16 +1,17 @@
 {
-  "name": "notes-app",
+  "name": "example-1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild ./src/index.js --bundle  --outfile=bundle.js --watch"
+    "build": "esbuild index.js --bundle  --outfile=bundle.js --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jest": "^28.0.3"
+    "esbuild": "^0.14.2",
+    "jest": "^27.4.3"
   }
 }
