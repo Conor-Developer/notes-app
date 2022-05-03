@@ -7,11 +7,18 @@ class notesView {
   }
 
   displayNotes() {
-    let newEL = document.createElement("div");
-    newEL.className = "newNote";
-    newEL.innerText = "Buy Milk";
-    this.selectNote.append(newEL);
+    const notes = this.notesModel.getNotes();
+
+    notes.forEach((note) => {
+      let newEL = document.createElement("div");
+      newEL.className = "newNote";
+      newEL.innerText = note;
+      this.selectNote.append(newEL);
+    });
   }
 }
 
-module.exports = notesView;
+module.exports = {
+  notesView,
+  notesModel,
+};

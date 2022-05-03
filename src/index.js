@@ -1,12 +1,11 @@
+const notes = require("./notesView");
 
+const note = new notes.notesView();
 
-const notesModel = require("./notesModel");
+note.notesModel.addNote("Buy milk");
 
-const notes = new notesModel();
+note.notesModel.addNote("Buy sugar");
 
-notes.addNote("Buy milk");
-
-console.log(notes.getNotes());
+note.displayNotes();
 
 module.exports = notesModel;
-

@@ -20,10 +20,13 @@ describe(notesView, () => {
   });
 
   it("displayNotes gets the list of notes from the model", () => {
-    notesModelDouble.getNotes.mockImplementation(() => ["Buy milk"]);
+    notesModelDouble.getNotes.mockImplementation(() => [
+      "Buy Milk",
+      "Buy Sugar",
+    ]);
 
     newNotesView.displayNotes();
 
-    expect(document.querySelector("div.newNote").innerText).toBe("Buy Milk");
+    expect(document.querySelectorAll("div.newNote").length).toEqual(2);
   });
 });
