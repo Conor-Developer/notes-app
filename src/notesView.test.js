@@ -3,7 +3,6 @@
  */
 
 const fs = require("fs");
-// const notesModel = require("./notesModel");
 const notes = require("./notesView");
 jest.mock("./notesModel");
 
@@ -28,5 +27,18 @@ describe(notes.notesView, () => {
     newNotesView.displayNotes();
 
     expect(document.querySelectorAll("div.newNote").length).toEqual(2);
+  });
+
+  it("adds user text input to the webpage", () => {
+    const inputEL = document.querySelector("#message-input");
+
+    inputEL.value = "Hello, World!";
+
+    notesModelDouble.getNotes.mockImplementation(() => [inputEL]);
+
+    const buttonEL = document.querySelector("#add-note");
+    buttonEL.click();
+
+    expect(document.querySelectorAll("div.newNote")).not.toBeNull();
   });
 });
