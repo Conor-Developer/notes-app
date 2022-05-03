@@ -1,19 +1,16 @@
-const notesModel = require('./notesModel')
+const notesModel = require("./notesModel");
 
 class notesView {
-
-  constructor(notesModel = new notesModel) {
-    this.notesModel = notesModel
+  constructor(notes = new notesModel()) {
+    this.notesModel = notes;
+    this.selectNote = document.querySelector("#main-container");
   }
 
   displayNotes() {
-    let selectNote = document.querySelector("#main-container");
-    let div = document.createElement("div");
-    div.className = "notesModel";
-    div.innerText = this.notesModel.notes[0];
-    selectNote.append(div);
-    console.log(selectNote)
-    console.log(div.innerText)
+    let newEL = document.createElement("div");
+    newEL.className = "newNote";
+    newEL.innerText = "Buy Milk";
+    this.selectNote.append(newEL);
   }
 }
 
