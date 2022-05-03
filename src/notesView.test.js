@@ -3,20 +3,20 @@
  */
 
 const fs = require("fs");
-const notesModel = require("./notesModel");
-const notesView = require("./notesView");
+// const notesModel = require("./notesModel");
+const notes = require("./notesView");
 jest.mock("./notesModel");
 
-describe(notesView, () => {
+describe(notes.notesView, () => {
   beforeEach(() => {
     document.body.innerHTML = fs.readFileSync("./index.html");
-    notesModel.mockClear();
-    notesModelDouble = new notesModel();
-    newNotesView = new notesView(notesModelDouble);
+    notes.notesModel.mockClear();
+    notesModelDouble = new notes.notesModel();
+    newNotesView = new notes.notesView(notesModelDouble);
   });
 
   it("creates a new instance of the notesModel class", () => {
-    expect(newNotesView.notesModel).toBeInstanceOf(notesModel);
+    expect(newNotesView.notesModel).toBeInstanceOf(notes.notesModel);
   });
 
   it("displayNotes gets the list of notes from the model", () => {
