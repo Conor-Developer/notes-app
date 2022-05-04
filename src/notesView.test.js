@@ -4,6 +4,7 @@
 
 const fs = require("fs");
 const notes = require("./notesView");
+require("jest-fetch-mock").enableMocks();
 jest.mock("./notesModel");
 
 describe(notes.notesView, () => {
@@ -11,7 +12,8 @@ describe(notes.notesView, () => {
     document.body.innerHTML = fs.readFileSync("./index.html");
     notes.notesModel.mockClear();
     notesModelDouble = new notes.notesModel();
-    newNotesView = new notes.notesView(notesModelDouble);
+    notesApiDouble = new notes.notesApi();
+    newNotesView = new notes.notesView(notesModelDouble, notesApiDouble);
   });
 
   it("creates a new instance of the notesModel class", () => {
@@ -58,5 +60,19 @@ describe(notes.notesView, () => {
     buttonEL.click();
 
     expect(document.querySelectorAll("div.newNote").length).toEqual(2);
+  });
+
+  it("#displayNotesFromApi - displays notes from API class", () => {
+    const fetchMock = fetch.mockResponseOnce(
+      JSON.stringify({
+        name: "Buy Milk",
+      })
+    );
+
+    newNotesView.notesA.loadData.mockImplementation(() => fetchMock);
+
+    newNotesView.displayNotesFromApi();
+
+    expect(document.querySelectorAll("div.newNote").length).toEqual(1);
   });
 });

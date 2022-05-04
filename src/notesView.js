@@ -1,7 +1,9 @@
 const notesModel = require("./notesModel");
+const notesApi = require("./notesApi");
 
 class notesView {
-  constructor(notes = new notesModel()) {
+  constructor(notes = new notesModel(), notesA = new notesApi()) {
+    this.notesA = notesA;
     this.notesModel = notes;
     this.selectNote = document.querySelector("#main-container");
 
@@ -21,6 +23,7 @@ class notesView {
 
   displayNotes() {
     const notes = this.notesModel.getNotes();
+
     notes.forEach((note) => {
       let newEL = document.createElement("div");
       newEL.className = "newNote";
@@ -34,9 +37,17 @@ class notesView {
       .querySelectorAll("div.newNote")
       .forEach((element) => element.remove());
   }
+
+  displayNotesFromApi() {
+    this.notesA.loadData((receivedData) => {
+      this.notesModel.setNotes(receivedData);
+      this.displayNotes();
+    });
+  }
 }
 
 module.exports = {
   notesView,
   notesModel,
+  notesApi,
 };
