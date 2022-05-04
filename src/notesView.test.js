@@ -41,4 +41,22 @@ describe(notes.notesView, () => {
 
     expect(document.querySelectorAll("div.newNote")).not.toBeNull();
   });
+
+  it("prevents duplicate notes being displayed", () => {
+    const inputEL = document.querySelector("#message-input");
+
+    inputEL.value = "Hello, World";
+
+    notesModelDouble.getNotes.mockImplementation(() => [inputEL]);
+
+    const buttonEL = document.querySelector("#add-note");
+
+    buttonEL.click();
+
+    notesModelDouble.getNotes.mockImplementation(() => [inputEL, inputEL]);
+
+    buttonEL.click();
+
+    expect(document.querySelectorAll("div.newNote").length).toEqual(2);
+  });
 });

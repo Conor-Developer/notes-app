@@ -11,7 +11,11 @@ class notesView {
 
     this.buttonEL.addEventListener("click", () => {
       this.notesModel.addNote(this.inputEL.value);
+      this.clearNotes();
       this.displayNotes();
+
+      // Clears the input in the text field
+      this.inputEL.value = "";
     });
   }
 
@@ -23,6 +27,12 @@ class notesView {
       newEL.innerText = note;
       this.selectNote.append(newEL);
     });
+  }
+
+  clearNotes() {
+    document
+      .querySelectorAll("div.newNote")
+      .forEach((element) => element.remove());
   }
 }
 
