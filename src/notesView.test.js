@@ -72,8 +72,13 @@ describe(notes.notesView, () => {
       "this is a note",
     ]);
 
-    newNotesView.displayNotesFromApi(() => {
-      expect(document.querySelectorAll("div.newNote").length).toEqual(1);
-    });
+    newNotesView.notesA.loadData.mockImplementation((callback) =>
+      callback(["this is a note"])
+    );
+
+    newNotesView.displayNotesFromApi();
+    expect(newNotesView.notesModel.getNotes).toHaveBeenCalledTimes(1);
+    expect(newNotesView.notesModel.setNotes).toHaveBeenCalledTimes(1);
+    expect(document.querySelectorAll("div.newNote").length).toEqual(1);
   });
 });
