@@ -6,11 +6,13 @@ const fs = require("fs");
 const notes = require("./notesView");
 require("jest-fetch-mock").enableMocks();
 jest.mock("./notesModel");
+jest.mock("./notesApi");
 
 describe(notes.notesView, () => {
   beforeEach(() => {
     document.body.innerHTML = fs.readFileSync("./index.html");
     notes.notesModel.mockClear();
+    notes.notesApi.mockClear();
     notesModelDouble = new notes.notesModel();
     notesApiDouble = new notes.notesApi();
     newNotesView = new notes.notesView(notesModelDouble, notesApiDouble);
@@ -63,16 +65,15 @@ describe(notes.notesView, () => {
   });
 
   it("#displayNotesFromApi - displays notes from API class", () => {
-    const fetchMock = fetch.mockResponseOnce(
-      JSON.stringify({
-        name: "Buy Milk",
-      })
-    );
+    newNotesView.notesModel.getNotes.mockImplementation(() => [
+      "this is a note",
+    ]);
+    newNotesView.notesModel.setNotes.mockImplementation(() => [
+      "this is a note",
+    ]);
 
-    newNotesView.notesA.loadData.mockImplementation(() => fetchMock);
-
-    newNotesView.displayNotesFromApi();
-
-    expect(document.querySelectorAll("div.newNote").length).toEqual(1);
+    newNotesView.displayNotesFromApi(() => {
+      expect(document.querySelectorAll("div.newNote").length).toEqual(1);
+    });
   });
 });
