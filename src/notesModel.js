@@ -1,4 +1,4 @@
-class notesModel {
+class NotesModel {
   constructor() {
     this.notes = [];
   }
@@ -7,17 +7,21 @@ class notesModel {
     return this.notes;
   }
 
-  addNote(newNote) {
-    return this.notes.push(newNote);
+  addNote(note) {
+    this.notes.push(note);
   }
 
   reset() {
-    return (this.notes = []);
+    this.notes = [];
   }
 
-  setNotes(data) {
-    return (this.notes = data);
+  setNotes(notes) {
+    this.notes = notes;
+  }
+
+  convertString(textValue) {
+    return { content: textValue };
   }
 }
 
-module.exports = notesModel;
+module.exports = NotesModel;

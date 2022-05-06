@@ -1,7 +1,5 @@
-const notes = require("./notesView");
+const NotesView = require("./notesView");
 
-const note = new notes.notesView();
+const view = new NotesView();
 
-note.displayNotesFromApi();
-
-module.exports = note;
+view.displayNotesFromApi();

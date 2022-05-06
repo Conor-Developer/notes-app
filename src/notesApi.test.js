@@ -27,7 +27,7 @@ describe(notesApi, () => {
     // to assert the values we get back contain
     // what we expect.
 
-    api.loadData((returnedDataFromApi) => {
+    api.loadNotes((returnedDataFromApi) => {
       expect(returnedDataFromApi.name).toBe("Some value");
       expect(returnedDataFromApi.id).toBe(123);
     });
